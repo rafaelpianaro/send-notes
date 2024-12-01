@@ -45,7 +45,7 @@ new class extends Component {
         <x-mary-input icon="o-user" wire:model='noteRecipient' tupe='email' label='Destinatário' placeholder='exemplo@mail.com'/>
         <x-mary-input icon="o-calendar" wire:model='noteSendDate' type='date' label='Data de envio' />
         <div class="pt-4">
-            <x-mary-button wire:click='submit' primary icon-right="o-paper-airplane" spinner>Agendar anotação</x-mary-button>
+            <x-mary-button wire:click='submit' primary icon-right="o-paper-airplane" spinner class="btn-success">Agendar anotação</x-mary-button>
         </div>
         <x-mary-errors />
     </form>
