@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             // $table->id();
-            // $table->uuid('id')->unique();
-            $table->uuid('id');
+            $table->uuid('id')->unique();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete(); // Chave estrangeira para o usuário
             $table->string('title'); 
             $table->text('body'); 
