@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Note extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
-        'uuid',
+        // 'uuid',
         'user_id',
         'title',
         'body',
@@ -19,6 +20,10 @@ class Note extends Model
         'recipient',
         'is_published',
         'heart_count'
+    ];
+
+    protected $guarded = [
+        'id',
     ];
 
     protected $casts = [
@@ -39,7 +44,7 @@ class Note extends Model
         parent::boot();
         
         static::creating(function ($model) {
-            $model->uuid = (string) \Illuminate\Support\Str::uuid();
+            $model->id = (string) \Illuminate\Support\Str::uuid();
         });
     }
 
