@@ -10,6 +10,7 @@ new class extends Component {
         // dd($noteId);
         $note = Note::where('id', $noteId)->first();
         // dd($note);
+        $this->authorize('delete', $note);
         $note->delete();
     }
 
@@ -48,7 +49,7 @@ new class extends Component {
                 <x-mary-card wire:key='{{ $note->id }}' shadow>
                     <div class="flex justify-between">
                         <div>
-                            <a href="#" class="py-2 text-xl font-bold hover:underline hover:text-blue-500">
+                            <a href="{{ route('notes.edit', $note) }}" wire:navigate class="py-2 text-xl font-bold hover:underline hover:text-blue-500">
                                 {{ $note->title }}
                             </a>
                             {{-- <p>{{ Str::limit($note->body, 20) }}</p> --}}
@@ -58,6 +59,9 @@ new class extends Component {
                             {{ \Carbon\Carbon::parse($note->send_date)->format('M/d/Y') }}
                         </div>
                     </div>
+                    <span class="badge {{ $note->is_published ? 'badge-success' : 'badge-error' }}">
+                        {{ $note->is_published ? 'Yes' : 'No' }}
+                    </span>
                     <div class="flex items-end justify-between mt-4 space-x-1">
                         <p class="text-xs text-gray-300">Destinatário: 
                             <span class="font-semibold text-gray-100">
@@ -65,7 +69,7 @@ new class extends Component {
                             </span>
                         </p>
                         <div>
-                            <x-mary-button icon="o-eye" class="w-12 h-2 bg-transparent hover:bg-transparent btn-circle" />
+                            <x-mary-button href="{{ route('notes.edit', $note) }}" wire:navigate icon="o-eye" class="w-12 h-2 bg-transparent hover:bg-transparent btn-circle" />
                             <x-mary-button icon="o-trash" wire:click="delete('{{ $note->id }}')" class="w-12 h-2 bg-transparent hover:bg-transparent btn-circle" />
                         </div>
                     </div>

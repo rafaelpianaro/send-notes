@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete(); // Chave estrangeira para o usuário
             $table->string('title'); 
             $table->text('body'); 
-            $table->date('send_date'); 
+            $table->date('send_date');
             $table->string('recipient');
             $table->boolean('is_published')->default(false); 
             $table->integer('heart_count')->default(0);
