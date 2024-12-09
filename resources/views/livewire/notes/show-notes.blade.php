@@ -66,9 +66,13 @@ new class extends Component {
                 <x-mary-card wire:key='{{ $note->id }}' shadow>
                     <div class="flex justify-between">
                         <div>
-                            <a href="{{ route('notes.edit', $note) }}" wire:navigate class="py-2 text-xl font-bold hover:underline hover:text-blue-500">
-                                {{ $note->title }}
-                            </a>
+                            @can('update', $note)
+                                <a href="{{ route('notes.edit', $note) }}" wire:navigate class="py-2 text-xl font-bold hover:underline hover:text-blue-500">
+                                    {{ $note->title }}
+                                </a>
+                            @else
+                                <p class="text-xl font-bold text-gray-500">{{ $note->title }}</p>
+                            @endcan
                             {{-- <p>{{ Str::limit($note->body, 20) }}</p> --}}
                             <p>{{ str($note->body)->words(5) }}</p>
                         </div>
@@ -77,7 +81,7 @@ new class extends Component {
                         </div>
                     </div>
                     <span class="badge {{ $note->is_published ? 'badge-success' : 'badge-error' }}">
-                        {{ $note->is_published ? 'Yes' : 'No' }}
+                        {{ $note->is_published ? 'Sim' : 'Não' }}
                     </span>
                     <div class="flex items-end justify-between mt-4 space-x-1">
                         <p class="text-xs text-gray-300">Destinatário: 
@@ -86,7 +90,7 @@ new class extends Component {
                             </span>
                         </p>
                         <div>
-                            <x-mary-button href="{{ route('notes.edit', $note) }}" wire:navigate icon="o-eye" class="w-12 h-2 bg-transparent hover:bg-transparent btn-circle" />
+                            <x-mary-button href="{{ route('notes.view', $note) }}" wire:navigate icon="o-eye" class="w-12 h-2 bg-transparent hover:bg-transparent btn-circle" />
                             <x-mary-button icon="o-trash" wire:click="delete('{{ $note->id }}')" class="w-12 h-2 bg-transparent hover:bg-transparent btn-circle" />
                         </div>
                     </div>
